@@ -1,3 +1,5 @@
+import Pygamble
+
 if __name__ == "__main__":
     inputString = ""
     state = 0
@@ -5,5 +7,7 @@ if __name__ == "__main__":
         inputString = input("Please enter: ")
         match inputString:
             #Blackjack
-            case 1:
+            case "1":
+                blackjack = Pygamble.Blackjack()
+                print(blackjack.showState())
                 break
