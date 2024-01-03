@@ -97,3 +97,6 @@ class Card:
     
     def getAbrev(self):
         return self.abrev
+    
+    def getValue(self):
+        return self.getAbrev()[:-1]
