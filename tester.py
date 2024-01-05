@@ -12,5 +12,5 @@ if __name__ == "__main__":
                 print(blackjack.showState())
                 while(blackjack.isEnd() == False):
                     gameInput = input("What would you like to do? (Hit = h, Stay = s) ")
-
-                break
+                    blackjack.playerTurn(gameInput)
+                    print(blackjack.showState())
