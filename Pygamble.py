@@ -2,6 +2,8 @@ import Pycards
 
 class Blackjack:
     def __init__(self):
+        self.end = False
+
         deck = Pycards.Deck(0)
         self.deck = deck
         deck.shuffle()
@@ -29,3 +31,8 @@ class Blackjack:
             playersHandOutput = playersHandOutput + cardText + " "
         outputString = "Dealer: " + dealerHandOutput + "\n" + "Player: " + playersHandOutput
         return(outputString)
+    def playerTurn(self, action):
+        
+        pass
+    def isEnd(self):
+        return self.end
