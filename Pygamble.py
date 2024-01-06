@@ -37,25 +37,27 @@ class Blackjack:
             outputString = outputString + ")"
         outputString = outputString + "\nPlayer: " + playersHandOutput + " (" + str(self.getHandValue(self.playersHand)) + ")"
         if(self.end == True):
-            if(self.getHandValue(self.playersHand) > 21):
+            playerHandValue = self.getHandValue(self.playersHand)
+            dealerHandValue = self.getHandValue(self.dealersHand)
+            if(playerHandValue > 21):
                 outputString = outputString + "\nDealer wins!"
-            elif(self.getHandValue(self.dealersHand) > 21):
+            elif(dealerHandValue > 21):
                 outputString = outputString + "\nPlayer wins!"
-            elif(self.getHandValue(self.playersHand) > self.getHandValue(self.dealersHand)):
+            elif(playerHandValue > dealerHandValue):
                 outputString = outputString + "\nPlayer wins!"
-            elif(self.getHandValue(self.playersHand) < self.getHandValue(self.dealersHand)):
+            elif(playerHandValue < dealerHandValue):
                 outputString = outputString + "\nDealer wins!"
-            elif(self.getHandValue(self.playersHand) == self.getHandValue(self.dealersHand)):
+            elif(playerHandValue == dealerHandValue):
                 outputString = outputString + "\nDraw!"
         return(outputString)
     def playerTurn(self, action):
         if(action == "h"):
             self.playersHand.append(self.deck.drawCard().getValue())
             if(self.getHandValue(self.playersHand) > 21):
+                self.revealDealerHiddenCard()
                 self.end = True
         elif(action == "s"):
-            self.dealersHand.remove("*")
-            self.dealersHand.append(self.dealersSecondCard)
+            self.revealDealerHiddenCard()
             if (self.getHandValue(self.dealersHand) >= 17):
                 self.end = True
             else:
@@ -73,11 +75,7 @@ class Blackjack:
                 handValue = handValue + int(symbol)
             else:
                 match(symbol):
-                    case "J":
-                        handValue = handValue + 10
-                    case "Q":
-                        handValue = handValue + 10
-                    case "K":
+                    case "J" | "Q" | "K":
                         handValue = handValue + 10
                     case "A":
                         if(handValue + 11 <= 21):
@@ -85,3 +83,7 @@ class Blackjack:
                         else:
                             handValue = handValue + 1
         return handValue
+    
+    def revealDealerHiddenCard(self):
+        self.dealersHand.remove("*")
+        self.dealersHand.append(self.dealersSecondCard)

@@ -4,13 +4,13 @@ if __name__ == "__main__":
     inputString = ""
     state = 0
     while (inputString != "Q"):
-        inputString = input("Please select game: ")
+        inputString = input("Please select game (Q = quit, 1 = blackjack): ")
         match inputString:
             #Blackjack
             case "1":
                 blackjack = Pygamble.Blackjack()
                 print(blackjack.showState())
                 while(blackjack.isEnd() == False):
-                    gameInput = input("What would you like to do? (Hit = h, Stay = s) ")
+                    gameInput = input("What would you like to do? (Hit = h, Stay = s): ")
                     blackjack.playerTurn(gameInput)
                     print(blackjack.showState())
