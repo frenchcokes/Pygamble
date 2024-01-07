@@ -11,18 +11,14 @@ class Blackjack:
         self.dealersHand = []
         self.playersHand = []
 
-        self.dealersHand.append(deck.drawCard().getValue())
+        self.drawAndAddValueToDealerHand()
         dealerSecondCard = deck.drawCard().getValue()
-        self.dealersSecondCard = dealerSecondCard
-        if (self.dealersHand == ("J" or "Q" or "K") and dealerSecondCard == "A"):
-            self.dealersHand.append(dealerSecondCard)
-        elif (self.dealersHand == ("A") and dealerSecondCard == ("J" or "Q" or "K")):
-            self.dealersHand.append(dealerSecondCard)
-        else:
-            self.dealersHand.append("*")
+        self.dealerSecondCard = dealerSecondCard
+        self.dealersHand.append("*")
         
-        self.playersHand.append(deck.drawCard().getValue())
-        self.playersHand.append(deck.drawCard().getValue())
+        self.drawAndAddValuetoPlayerHand()
+        self.drawAndAddValuetoPlayerHand()
+
     def showState(self):
         dealerHandOutput = ""
         for cardText in self.dealersHand:
@@ -49,10 +45,11 @@ class Blackjack:
                 outputString = outputString + "\nDealer wins!"
             elif(playerHandValue == dealerHandValue):
                 outputString = outputString + "\nDraw!"
-        return(outputString)
+        print(outputString)
+
     def playerTurn(self, action):
         if(action == "h"):
-            self.playersHand.append(self.deck.drawCard().getValue())
+            self.drawAndAddValuetoPlayerHand()
             if(self.getHandValue(self.playersHand) > 21):
                 self.revealDealerHiddenCard()
                 self.end = True
@@ -62,12 +59,14 @@ class Blackjack:
                 self.end = True
             else:
                 while(self.getHandValue(self.dealersHand) < 17):
-                    self.dealersHand.append(self.deck.drawCard().getValue())
+                    self.drawAndAddValueToDealerHand()
                 self.end = True
         else:
             pass
+        
     def isEnd(self):
         return self.end
+    
     def getHandValue(self, hand):
         handValue = 0
         for symbol in hand:
@@ -84,6 +83,12 @@ class Blackjack:
                             handValue = handValue + 1
         return handValue
     
+    def drawAndAddValueToDealerHand(self):
+        self.dealersHand.append(self.deck.drawCard().getValue())
+    
+    def drawAndAddValuetoPlayerHand(self):
+        self.playersHand.append(self.deck.drawCard().getValue())
+
     def revealDealerHiddenCard(self):
         self.dealersHand.remove("*")
-        self.dealersHand.append(self.dealersSecondCard)
+        self.dealersHand.append(self.dealerSecondCard)
