@@ -92,3 +92,13 @@ class Blackjack:
     def revealDealerHiddenCard(self):
         self.dealersHand.remove("*")
         self.dealersHand.append(self.dealerSecondCard)
+
+class War:
+    def __init__(self):
+        deck = Pycards.Deck(1)
+        deck.shuffle()
+        self.enemyDeck = deck.splitDeck(27)
+        self.playerDeck = deck
+    def showState(self):
+        self.enemyDeck.cardDisplay()
+        self.playerDeck.cardDisplay()

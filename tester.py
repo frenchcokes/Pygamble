@@ -4,7 +4,7 @@ if __name__ == "__main__":
     inputString = ""
     state = 0
     while (inputString != "q"):
-        inputString = input("Please select game (q = quit, 1 = blackjack): ")
+        inputString = input("Please select game (q = quit, 1 = blackjack, 2 = war): ")
         match inputString:
             #Blackjack
             case "1":
@@ -14,6 +14,7 @@ if __name__ == "__main__":
                     gameInput = input("What would you like to do? (Hit = h, Stay = s): ")
                     blackjack.playerTurn(gameInput)
                     blackjack.showState()
-            #Roulette
+            #War
             case "2":
-                pass
+                war = Pygamble.War()
+                war.showState()
