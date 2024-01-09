@@ -18,3 +18,7 @@ if __name__ == "__main__":
             case "2":
                 war = Pygamble.War()
                 war.showState()
+                while(war.isEnd() == False):
+                    gameInput = input("Type to proceed (Proceed = p, Quit = q)")
+                    war.playerTurn(gameInput)
+                    war.showState()

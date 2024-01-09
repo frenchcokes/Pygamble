@@ -95,10 +95,35 @@ class Blackjack:
 
 class War:
     def __init__(self):
+        self.end = False
+
         deck = Pycards.Deck(1)
         deck.shuffle()
         self.enemyDeck = deck.splitDeck(27)
         self.playerDeck = deck
+
+        self.enemyBoard = []
+        self.playerBoard = []
+
     def showState(self):
-        self.enemyDeck.cardDisplay()
-        self.playerDeck.cardDisplay()
+        playerBoardString = "Player board: "
+        if(self.playerBoard == []):
+            playerBoardString = playerBoardString + "[empty]"
+        else:
+            playerBoardString = playerBoardString + str(self.playerBoard)
+        print(playerBoardString)
+
+        enemyBoardString = "Enemy board: "
+        if(self.enemyBoard == []):
+            enemyBoardString = enemyBoardString + "[empty]"
+        else:
+            enemyBoardString = enemyBoardString + str(self.enemyBoard)
+        print(enemyBoardString)
+
+    def playerTurn(self, input):
+        match input:
+            case "q":
+                self.isEnd = True
+
+    def isEnd(self):
+        return self.end
