@@ -96,34 +96,72 @@ class Blackjack:
 class War:
     def __init__(self):
         self.end = False
+        self.winner = ""
 
-        deck = Pycards.Deck(1)
+        deck = Pycards.Deck(0)
         deck.shuffle()
-        self.enemyDeck = deck.splitDeck(27)
+        self.enemyDeck = deck.splitDeck(26)
         self.playerDeck = deck
 
         self.enemyBoard = []
         self.playerBoard = []
+
+        self.enemyDiscard = []
+        self.playerDiscard = []
 
     def showState(self):
         playerBoardString = "Player board: "
         if(self.playerBoard == []):
             playerBoardString = playerBoardString + "[empty]"
         else:
-            playerBoardString = playerBoardString + str(self.playerBoard)
+            for card in self.playerBoard:
+                playerBoardString = playerBoardString + card.getAbrev() + " "
         print(playerBoardString)
 
         enemyBoardString = "Enemy board: "
         if(self.enemyBoard == []):
             enemyBoardString = enemyBoardString + "[empty]"
         else:
-            enemyBoardString = enemyBoardString + str(self.enemyBoard)
+            for card in self.enemyBoard:
+                enemyBoardString = enemyBoardString + card.getAbrev() + " "
         print(enemyBoardString)
+
+        if(self.winner == "player"):
+            print("Player win!")
+        elif(self.winner == "enemy"):
+            print("Enemy win!")
+        elif(self.winner == ""):
+            print("")
+        else:
+            print("Draw, this means war!")
 
     def playerTurn(self, input):
         match input:
             case "q":
                 self.isEnd = True
+            case "p":
+                playerCard = self.playerDeck.drawCard()
+                self.playerBoard.append(playerCard)
+
+                enemyCard = self.enemyDeck.drawCard()
+                self.enemyBoard.append(enemyCard)
+
+                if(playerCard.isHigherValue(enemyCard)):
+                    self.playerDiscard.extend(self.playerBoard)
+                    self.playerDiscard.extend(self.enemyBoard)
+                    self.winner = "player"
+                elif(enemyCard.isHigherValue(playerCard)):
+                    self.enemyDiscard.extend(self.playerBoard)
+                    self.enemyDiscard.extend(self.enemyBoard)
+                    self.winner = "enemy"
+                else:
+                    self.playerBoard.append(self.playerDeck.drawCard())
+                    self.playerBoard.append(self.playerDeck.drawCard())
+
+                    self.enemyBoard.append(self.enemyDeck.drawCard())
+                    self.enemyBoard.append(self.enemyDeck.drawCard())
+                    self.winner = "draw"
+                self.showState()
 
     def isEnd(self):
         return self.end

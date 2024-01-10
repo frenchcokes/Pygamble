@@ -174,3 +174,19 @@ class Card:
     
     def getValue(self):
         return self.getAbrev()[:-1]
+    
+    #Only works with default deck(0)
+    def isHigherValue(self, compareCard):
+        valueRanking = ["2","3","4","5","6","7","8","9","10","J","Q","K","A"]
+        thisCardRank = self.getValue()
+        otherCardRank = compareCard.getValue()
+
+        if(valueRanking.index(thisCardRank) > valueRanking.index(otherCardRank)):
+            return True
+        else:
+            return False
+    
+
+
+
+
