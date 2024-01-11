@@ -112,24 +112,30 @@ class War:
     def showState(self):
         playerBoardString = "Player board: "
         if(self.playerBoard == []):
-            playerBoardString = playerBoardString + "[empty]"
+            playerBoardString = playerBoardString + "[empty] "
         else:
             for card in self.playerBoard:
                 playerBoardString = playerBoardString + card.getAbrev() + " "
+        playerBoardString = playerBoardString + "Remaining deck: " + str(self.playerDeck.size())
         print(playerBoardString)
 
         enemyBoardString = "Enemy board: "
         if(self.enemyBoard == []):
-            enemyBoardString = enemyBoardString + "[empty]"
+            enemyBoardString = enemyBoardString + "[empty] "
         else:
             for card in self.enemyBoard:
                 enemyBoardString = enemyBoardString + card.getAbrev() + " "
+        enemyBoardString = enemyBoardString + "Remaining deck: " + str(self.enemyDeck.size())
         print(enemyBoardString)
 
         if(self.winner == "player"):
             print("Player win!")
+            self.playerBoard = []
+            self.enemyBoard = []
         elif(self.winner == "enemy"):
             print("Enemy win!")
+            self.playerBoard = []
+            self.enemyBoard = []
         elif(self.winner == ""):
             print("")
         else:

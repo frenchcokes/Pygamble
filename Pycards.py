@@ -160,6 +160,8 @@ class Deck:
         for i in range(cardsInSplit):
             splitPartDeck.addCard(self.drawCard())
         return splitPartDeck
+    def size(self):
+        return len(self.cards)
 
 class Card:
     def __init__(self, name, abrev):
