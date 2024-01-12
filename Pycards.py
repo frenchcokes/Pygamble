@@ -152,6 +152,12 @@ class Deck:
     def drawCard(self):
         return self.cards.pop(0)
 
+    def isEmpty(self):
+        if(self.cards == []):
+            return True
+        else:
+            return False
+
     def viewTopCard(self):
         return self.cards[0]
     
