@@ -148,11 +148,22 @@ class War:
             case "p":
                 if((self.playerDeck.size() == 0) and (self.enemyDeck.size() == 0)):
                     self.winner = "draw"
-                    self.playerDeck
+                    for card in self.playerDiscard:
+                        self.playerDeck.addCard(card)
+                    self.playerDiscard = []
+                    for card in self.enemyDiscard:
+                        self.enemyDeck.addCard(card)
+                    self.enemyDiscard = []
                 elif(self.playerDeck.size() == 0):
                     self.winner = "enemy"
+                    for card in self.playerDiscard:
+                        self.playerDeck.addCard(card)
+                    self.playerDiscard = []
                 elif(self.enemyDeck.size() == 0):
                     self.winner = "player"
+                    for card in self.enemyDiscard:
+                        self.enemyDeck.addCard(card)
+                    self.enemyDiscard = []
                 else:
                     playerCard = self.playerDeck.drawCard()
                     self.playerBoard.append(playerCard)
