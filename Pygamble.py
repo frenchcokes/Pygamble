@@ -138,8 +138,12 @@ class War:
             self.enemyBoard = []
         elif(self.winner == "war"):
             print("War! (+2 cards both sides)")
-        elif(self.winner == "draw"):
-            print("Draw!")
+        elif(self.winner == "drawooc"):
+            print("Draw! (Both players ran out of cards)")
+        elif(self.winner == "enemyooc"):
+            print("Enemy win! (Player ran out of cards)")
+        elif(self.winner == "playerooc"):
+            print("Enemy win! (enemy ran out of cards)")
 
     def playerTurn(self, input):
         match input:
@@ -147,7 +151,7 @@ class War:
                 self.isEnd = True
             case "p":
                 if((self.playerDeck.size() == 0) and (self.enemyDeck.size() == 0)):
-                    self.winner = "draw"
+                    self.winner = "drawooc"
                     for card in self.playerDiscard:
                         self.playerDeck.addCard(card)
                     self.playerDiscard = []
@@ -181,11 +185,20 @@ class War:
                         self.winner = "enemy"
                     else:
                         if((self.playerDeck.size() < 2) and (self.enemyDeck.size() < 2)):
-                            self.winner = "draw"
+                            for card in self.playerDiscard:
+                                self.playerDeck.addCard(card)
+                                self.playerDiscard = []
+                            self.winner = "drawooc"
                         elif(self.playerDeck.size() < 2):
-                            self.winner = "enemy"
+                            for card in self.playerDiscard:
+                                self.playerDeck.addCard(card)
+                                self.playerDiscard = []
+                            self.winner = "enemyooc"
                         elif(self.enemyDeck.size() < 2):
-                            self.winner = "player"
+                            for card in self.enemyDiscard:
+                                self.enemyDeck.addCard(card)
+                                self.enemyDiscard = []
+                            self.winner = "playerooc"
                         else:
                             self.playerBoard.append(self.playerDeck.drawCard())
                             self.playerBoard.append(self.playerDeck.drawCard())

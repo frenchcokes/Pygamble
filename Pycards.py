@@ -149,6 +149,10 @@ class Deck:
     def addCard(self, Card):
         self.cards.append(Card)
 
+    def combineDeck(self, mergeDeck):
+        for card in mergeDeck.cards:
+            self.addCard(card)
+
     def drawCard(self):
         return self.cards.pop(0)
 
@@ -168,6 +172,9 @@ class Deck:
         return splitPartDeck
     def size(self):
         return len(self.cards)
+
+    def cards(self):
+        return self.cards
 
 class Card:
     def __init__(self, name, abrev):
