@@ -103,39 +103,39 @@ class War:
         self.enemyDeck = deck.splitDeck(26)
         self.playerDeck = deck
 
-        self.enemyBoard = []
-        self.playerBoard = []
+        self.enemyBoard = Pycards.Deck(-1)
+        self.playerBoard = Pycards.Deck(-1)
 
-        self.enemyDiscard = []
-        self.playerDiscard = []
+        self.enemyDiscard = Pycards.Deck(-1)
+        self.playerDiscard = Pycards.Deck(-1)
 
     def showState(self):
         playerBoardString = "Player board: "
-        if(self.playerBoard == []):
+        if(self.playerBoard.isEmpty() == True):
             playerBoardString = playerBoardString + "[empty] "
         else:
-            for card in self.playerBoard:
+            for card in self.playerBoard.getCards():
                 playerBoardString = playerBoardString + card.getAbrev() + " "
-        playerBoardString = playerBoardString + "Remaining deck: " + str(self.playerDeck.size()) + " Discard pile: " + str(len(self.playerDiscard))
+        playerBoardString = playerBoardString + "Remaining deck: " + str(self.playerDeck.size()) + " Discard pile: " + str(self.playerDiscard.size())
         print(playerBoardString)
 
         enemyBoardString = "Enemy board: "
-        if(self.enemyBoard == []):
+        if(self.enemyBoard.isEmpty() == True):
             enemyBoardString = enemyBoardString + "[empty] "
         else:
-            for card in self.enemyBoard:
+            for card in self.enemyBoard.getCards():
                 enemyBoardString = enemyBoardString + card.getAbrev() + " "
-        enemyBoardString = enemyBoardString + "Remaining deck: " + str(self.enemyDeck.size()) + " Discard pile: " + str(len(self.enemyDiscard))
+        enemyBoardString = enemyBoardString + "Remaining deck: " + str(self.enemyDeck.size()) + " Discard pile: " + str(self.enemyDiscard.size())
         print(enemyBoardString)
 
         if(self.winner == "player"):
             print("Player win!")
-            self.playerBoard = []
-            self.enemyBoard = []
+            self.playerBoard.empty()
+            self.enemyBoard.empty()
         elif(self.winner == "enemy"):
             print("Enemy win!")
-            self.playerBoard = []
-            self.enemyBoard = []
+            self.playerBoard.empty()
+            self.enemyBoard.empty()
         elif(self.winner == "war"):
             print("War! (+2 cards both sides)")
         elif(self.winner == "drawooc"):
@@ -144,69 +144,79 @@ class War:
             print("Enemy win! (Player ran out of cards)")
         elif(self.winner == "playerooc"):
             print("Enemy win! (enemy ran out of cards)")
+        elif(self.winner == "playerWin"):
+            print("Player has won the war! Game Over")
+            self.isEnd = True
+        elif(self.winner == "enemyWin"):
+            print("Enemy has won the war! Game Over")
+            self.isEnd = True
 
     def playerTurn(self, input):
         match input:
             case "q":
                 self.isEnd = True
             case "p":
-                if((self.playerDeck.size() == 0) and (self.enemyDeck.size() == 0)):
+                if((self.playerDeck.isEmpty() == True) and (self.enemyDeck.isEmpty() == True)):
                     self.winner = "drawooc"
-                    for card in self.playerDiscard:
+                    for card in self.playerDiscard.getCards():
                         self.playerDeck.addCard(card)
-                    self.playerDiscard = []
-                    for card in self.enemyDiscard:
+                    self.playerDiscard.empty()
+                    for card in self.enemyDiscard.getCards():
                         self.enemyDeck.addCard(card)
-                    self.enemyDiscard = []
-                elif(self.playerDeck.size() == 0):
+                    self.enemyDiscard.empty()
+                elif(self.playerDeck.isEmpty() == True):
                     self.winner = "enemy"
-                    for card in self.playerDiscard:
+                    for card in self.playerDiscard.getCards():
                         self.playerDeck.addCard(card)
-                    self.playerDiscard = []
-                elif(self.enemyDeck.size() == 0):
+                    self.playerDiscard.empty()
+                elif(self.enemyDeck.isEmpty() == True):
                     self.winner = "player"
-                    for card in self.enemyDiscard:
+                    for card in self.enemyDiscard.getCards():
                         self.enemyDeck.addCard(card)
-                    self.enemyDiscard = []
+                    self.enemyDiscard.empty()
                 else:
                     playerCard = self.playerDeck.drawCard()
-                    self.playerBoard.append(playerCard)
+                    self.playerBoard.addCard(playerCard)
 
                     enemyCard = self.enemyDeck.drawCard()
-                    self.enemyBoard.append(enemyCard)
+                    self.enemyBoard.addCard(enemyCard)
 
                     if(playerCard.isHigherValue(enemyCard)):
-                        self.playerDiscard.extend(self.playerBoard)
-                        self.playerDiscard.extend(self.enemyBoard)
+                        self.playerDiscard.combineDeck(self.playerBoard)
+                        self.playerDiscard.combineDeck(self.enemyBoard)
                         self.winner = "player"
                     elif(enemyCard.isHigherValue(playerCard)):
-                        self.enemyDiscard.extend(self.playerBoard)
-                        self.enemyDiscard.extend(self.enemyBoard)
+                        self.enemyDiscard.combineDeck(self.playerBoard)
+                        self.enemyDiscard.combineDeck(self.enemyBoard)
                         self.winner = "enemy"
                     else:
                         if((self.playerDeck.size() < 2) and (self.enemyDeck.size() < 2)):
-                            for card in self.playerDiscard:
+                            for card in self.playerDiscard.getCards():
                                 self.playerDeck.addCard(card)
-                                self.playerDiscard = []
+                                self.playerDiscard.empty()
                             self.winner = "drawooc"
                         elif(self.playerDeck.size() < 2):
-                            for card in self.playerDiscard:
+                            for card in self.playerDiscard.getCards():
                                 self.playerDeck.addCard(card)
-                                self.playerDiscard = []
+                                self.playerDiscard.empty()
                             self.winner = "enemyooc"
                         elif(self.enemyDeck.size() < 2):
-                            for card in self.enemyDiscard:
+                            for card in self.enemyDiscard.getCards():
                                 self.enemyDeck.addCard(card)
-                                self.enemyDiscard = []
+                                self.enemyDiscard.empty()
                             self.winner = "playerooc"
                         else:
-                            self.playerBoard.append(self.playerDeck.drawCard())
-                            self.playerBoard.append(self.playerDeck.drawCard())
+                            self.playerBoard.addCard(self.playerDeck.drawCard())
+                            self.playerBoard.addCard(self.playerDeck.drawCard())
                                 
-                            self.enemyBoard.append(self.enemyDeck.drawCard())
-                            self.enemyBoard.append(self.enemyDeck.drawCard())
+                            self.enemyBoard.addCard(self.enemyDeck.drawCard())
+                            self.enemyBoard.addCard(self.enemyDeck.drawCard())
 
                             self.winner = "war"
+                    if(self.playerBoard.isEmpty() and self.playerDiscard.isEmpty()):
+                        self.winner = "enemyWin"
+                    elif(self.enemyBoard.isEmpty() and self.playerDiscard.isEmpty()):
+                        self.winner = "playerWin"
                 self.showState()
 
     def isEnd(self):

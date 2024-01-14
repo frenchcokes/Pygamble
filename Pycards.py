@@ -173,7 +173,7 @@ class Deck:
     def size(self):
         return len(self.cards)
 
-    def cards(self):
+    def getCards(self):
         return self.cards
 
 class Card:
