@@ -128,29 +128,30 @@ class War:
         enemyBoardString = enemyBoardString + "Remaining deck: " + str(self.enemyDeck.size()) + " Discard pile: " + str(self.enemyDiscard.size())
         print(enemyBoardString)
 
-        if(self.winner == "player"):
-            print("Player win!")
-            self.playerBoard.empty()
-            self.enemyBoard.empty()
-        elif(self.winner == "enemy"):
-            print("Enemy win!")
-            self.playerBoard.empty()
-            self.enemyBoard.empty()
-        elif(self.winner == "war"):
-            print("War! (+2 cards both sides)")
-        elif(self.winner == "drawooc"):
-            print("Draw! (Both players ran out of cards)")
-        elif(self.winner == "enemyooc"):
-            print("Enemy win! (Player ran out of cards)")
-        elif(self.winner == "playerooc"):
-            print("Enemy win! (enemy ran out of cards)")
-        elif(self.winner == "playerWin"):
-            print("Player has won the war! Game Over")
-            self.isEnd = True
-        elif(self.winner == "enemyWin"):
-            print("Enemy has won the war! Game Over")
-            self.isEnd = True
-
+        match(self.winner):
+            case "player":
+                print("Player win!")
+                self.playerBoard.empty()
+                self.enemyBoard.empty()
+            case "enemy":
+                print("Enemy win!")
+                self.playerBoard.empty()
+                self.enemyBoard.empty()
+            case "war":
+                print("War! (+2 cards both sides)")
+            case "drawooc":
+                print("Draw! (Both players ran out of cards)")
+            case "enemyooc":
+                print("Enemy win! (Player ran out of cards)")
+            case "playerooc":
+                print("Player win! (Enemy ran out of cards)")
+            case "playerWin":
+                print("Player has won the war! Game Over.")
+                self.isEnd = True
+            case "enemyWin":
+                print("Enemy has won the war! Game Over")
+                self.isEnd = True
+        
     def playerTurn(self, input):
         match input:
             case "q":
