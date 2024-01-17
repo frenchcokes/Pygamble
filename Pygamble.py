@@ -218,7 +218,19 @@ class War:
                         self.winner = "enemyWin"
                     elif(self.enemyBoard.isEmpty() and self.playerDiscard.isEmpty()):
                         self.winner = "playerWin"
-                self.showState()
-
+                
     def isEnd(self):
         return self.end
+    
+    class GoFish:
+        def __init__(self):
+            pass
+
+        def showState(self):
+            pass
+
+        def isEnd(self):
+            pass
+
+        def playerTurn(self):
+            pass
