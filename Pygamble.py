@@ -222,15 +222,24 @@ class War:
     def isEnd(self):
         return self.end
     
-    class GoFish:
+class GoFish:
         def __init__(self):
-            pass
+            self.playerHand = Pycards.Deck(-1)
+            self.enemyHand = Pycards.Deck(-1)
 
+            self.deck = Pycards.Deck(0)
+            self.dealStartingCards()
         def showState(self):
-            pass
+            print("Enemy has: " + str(self.enemyHand.size()) + " cards in hand.")
+            print("You have: " + str(self.playerHand.getCards()))
 
         def isEnd(self):
             pass
 
         def playerTurn(self):
             pass
+
+        def dealStartingCards(self):
+            for _ in range(7):
+                self.playerHand.addCard(self.deck.drawCard())
+                self.enemyHand.addCard(self.deck.drawCard())
