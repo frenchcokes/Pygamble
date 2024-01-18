@@ -175,6 +175,14 @@ class Deck:
 
     def getCards(self):
         return self.cards
+        
+    def getDisplayString(self):
+        output = []
+        for card in self.cards:
+            output.append(card.getAbrev())
+            output.append(" ")
+        output.pop(-1)
+        return ''.join(output)
 
 class Card:
     def __init__(self, name, abrev):

@@ -227,11 +227,17 @@ class GoFish:
             self.playerHand = Pycards.Deck(-1)
             self.enemyHand = Pycards.Deck(-1)
 
+            self.playerBooks = 0
+            self.enemyBooks = 0
+
             self.deck = Pycards.Deck(0)
             self.dealStartingCards()
         def showState(self):
             print("Enemy has: " + str(self.enemyHand.size()) + " cards in hand.")
-            print("You have: " + str(self.playerHand.getCards()))
+            print("Enemy has: " + str(self.enemyBooks) + " books")
+            print("The deck has: " + str(self.deck.size()) + " cards")
+            print("Player has: " + str(self.playerBooks) + " books")
+            print("Player has: " + self.playerHand.getDisplayString() + " (" + str(self.playerHand.size()) + " total)")
 
         def isEnd(self):
             pass
