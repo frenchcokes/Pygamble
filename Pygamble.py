@@ -232,6 +232,8 @@ class GoFish:
 
             self.deck = Pycards.Deck(0)
             self.dealStartingCards()
+
+            self.End = False
         def showState(self):
             print("Enemy has: " + str(self.enemyHand.size()) + " cards in hand.")
             print("Enemy has: " + str(self.enemyBooks) + " books")
@@ -240,10 +242,38 @@ class GoFish:
             print("Player has: " + self.playerHand.getDisplayString() + " (" + str(self.playerHand.size()) + " total)")
 
         def isEnd(self):
-            pass
+            return self.End
 
-        def playerTurn(self):
-            pass
+        def playerTurn(self, input):
+            match(input):
+                case "2":
+                    self.enemyHand.removeCard(2)
+                case "3":
+                    pass
+                case "4":
+                    pass
+                case "5":
+                    pass
+                case "6":
+                    pass
+                case "7":
+                    pass
+                case "8":
+                    pass
+                case "9":
+                    pass
+                case "10":
+                    pass
+                case "J":
+                    pass
+                case "Q":
+                    pass
+                case "K":
+                    pass
+                case "A":
+                    pass
+                case _:
+                    pass
 
         def dealStartingCards(self):
             for _ in range(7):

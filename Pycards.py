@@ -183,6 +183,14 @@ class Deck:
             output.append(" ")
         output.pop(-1)
         return ''.join(output)
+    
+    def removeCard(self, cardAbrev):
+        for x in range(len(self.cards)):
+            if(self.cards[x].getAbrev() == cardAbrev):
+                self.cards.pop(x)
+                return True
+        return False
+
 
 class Card:
     def __init__(self, name, abrev):

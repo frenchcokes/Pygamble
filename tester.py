@@ -29,7 +29,7 @@ if __name__ == "__main__":
                 goFish = Pygamble.GoFish()
                 goFish.showState()
                 while(goFish.isEnd() == False):
-                    gameInput = input("What would you like to fish?")
+                    gameInput = input("What would you like to fish? (2-10,J,Q,K,A) ")
                     goFish.playerTurn(gameInput)
                     goFish.showState()
                 pass
