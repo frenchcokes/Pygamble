@@ -184,12 +184,20 @@ class Deck:
         output.pop(-1)
         return ''.join(output)
     
+    def removeCopyOfCards(self, cardAbrev):
+        cardList = Deck(-1)
+        for x in range(len(self.cards)):
+            if(self.cards[x].getAbrev()[0:-1] == cardAbrev):
+                cardList.addCard(self.cards[x])
+        for card in cardList.getCards():
+            self.removeCard(card.getAbrev())
+        return cardList
+
     def removeCard(self, cardAbrev):
         for x in range(len(self.cards)):
-            if(self.cards[x].getAbrev() == cardAbrev):
+            if(self.cards[x].getAbrev()[0:-1] == cardAbrev):
                 self.cards.pop(x)
-                return True
-        return False
+            pass
 
 
 class Card:

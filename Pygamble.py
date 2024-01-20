@@ -245,35 +245,40 @@ class GoFish:
             return self.End
 
         def playerTurn(self, input):
+            removedCards = []
             match(input):
                 case "2":
-                    self.enemyHand.removeCard(2)
+                    removedCards = self.enemyHand.removeCopyOfCards("2")
                 case "3":
-                    pass
+                    removedCards = self.enemyHand.removeCopyOfCards("3")
                 case "4":
-                    pass
+                    removedCards = self.enemyHand.removeCopyOfCards("4")
                 case "5":
-                    pass
+                    removedCards = self.enemyHand.removeCopyOfCards("5")
                 case "6":
-                    pass
+                    removedCards = self.enemyHand.removeCopyOfCards("6")
                 case "7":
-                    pass
+                    removedCards = self.enemyHand.removeCopyOfCards("7")
                 case "8":
-                    pass
+                    removedCards = self.enemyHand.removeCopyOfCards("8")
                 case "9":
-                    pass
+                    removedCards = self.enemyHand.removeCopyOfCards("9")
                 case "10":
-                    pass
+                    removedCards = self.enemyHand.removeCopyOfCards("10")
                 case "J":
-                    pass
+                    removedCards = self.enemyHand.removeCopyOfCards("J")
                 case "Q":
-                    pass
+                    removedCards = self.enemyHand.removeCopyOfCards("Q")
                 case "K":
-                    pass
+                    removedCards = self.enemyHand.removeCopyOfCards("K")
                 case "A":
-                    pass
+                    removedCards = self.enemyHand.removeCopyOfCards("A")
                 case _:
                     pass
+            if(removedCards == []):
+                self.playerHand.addCard(self.deck.drawCard())
+            else:
+                self.playerHand.combineDeck(removedCards)
 
         def dealStartingCards(self):
             for _ in range(7):
