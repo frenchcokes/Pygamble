@@ -177,6 +177,8 @@ class Deck:
         return self.cards
         
     def getDisplayString(self):
+        if(self.cards == []):
+            return "[]"
         output = []
         for card in self.cards:
             output.append(card.getAbrev())
@@ -190,14 +192,14 @@ class Deck:
             if(self.cards[x].getAbrev()[0:-1] == cardAbrev):
                 cardList.addCard(self.cards[x])
         for card in cardList.getCards():
-            self.removeCard(card.getAbrev())
+            self.removeCard(card.getAbrev()[0:-1])
         return cardList
 
     def removeCard(self, cardAbrev):
         for x in range(len(self.cards)):
-            if(self.cards[x].getAbrev()[0:-1] == cardAbrev):
+            if(str(self.cards[x].getAbrev()[0:-1]) == str(cardAbrev)):
                 self.cards.pop(x)
-            pass
+                break
 
 
 class Card:
