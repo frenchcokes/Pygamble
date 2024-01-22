@@ -236,8 +236,9 @@ class GoFish:
 
             self.End = False
         def showState(self):
+            print("--------------------")
             if(self.isGoFish == True):
-                print("That card is not in the enemy hand! Go fish.")
+                print("That card was not in the enemy hand! Go fish.")
             else:
                 print("That card was in the enemy hand!")
 
@@ -247,48 +248,53 @@ class GoFish:
             print("Player has: " + str(self.playerBooks) + " books")
             print("Player has: " + self.playerHand.getDisplayString() + " (" + str(self.playerHand.size()) + " total)")
 
-            self.isGoFish = False
+            print("--------------------")
 
         def isEnd(self):
             return self.End
 
         def playerTurn(self, input):
-            removedCards = Pycards.Deck(-1)
-            match(input):
-                case "2":
-                    removedCards.combineDeck(self.enemyHand.removeCopyOfCards("2"))
-                case "3":
-                    removedCards.combineDeck(self.enemyHand.removeCopyOfCards("3"))
-                case "4":
-                    removedCards.combineDeck(self.enemyHand.removeCopyOfCards("4"))
-                case "5":
-                    removedCards.combineDeck(self.enemyHand.removeCopyOfCards("5"))
-                case "6":
-                    removedCards.combineDeck(self.enemyHand.removeCopyOfCards("6"))
-                case "7":
-                    removedCards.combineDeck(self.enemyHand.removeCopyOfCards("7"))
-                case "8":
-                    removedCards.combineDeck(self.enemyHand.removeCopyOfCards("8"))
-                case "9":
-                    removedCards.combineDeck(self.enemyHand.removeCopyOfCards("9"))
-                case "10":
-                    removedCards.combineDeck(self.enemyHand.removeCopyOfCards("10"))
-                case "J":
-                    removedCards.combineDeck(self.enemyHand.removeCopyOfCards("J"))
-                case "Q":
-                    removedCards.combineDeck(self.enemyHand.removeCopyOfCards("Q"))
-                case "K":
-                    removedCards.combineDeck(self.enemyHand.removeCopyOfCards("K"))
-                case "A":
-                    removedCards.combineDeck(self.enemyHand.removeCopyOfCards("A"))
-                case _:
-                    pass
-            if(removedCards.isEmpty() == True):
-                self.isGoFish = True
-                self.playerHand.addCard(self.deck.drawCard())
-            else:
-                self.isGoFish = False
-                self.playerHand.combineDeck(removedCards)
+            if(self.isGoFish == True):
+                #enemy does 
+                self.isGoFish == False
+            else:     
+                removedCards = Pycards.Deck(-1)
+                match(input):
+                    case "2":
+                        removedCards.combineDeck(self.enemyHand.removeCopyOfCards("2"))
+                    case "3":
+                        removedCards.combineDeck(self.enemyHand.removeCopyOfCards("3"))
+                    case "4":
+                        removedCards.combineDeck(self.enemyHand.removeCopyOfCards("4"))
+                    case "5":
+                        removedCards.combineDeck(self.enemyHand.removeCopyOfCards("5"))
+                    case "6":
+                        removedCards.combineDeck(self.enemyHand.removeCopyOfCards("6"))
+                    case "7":
+                        removedCards.combineDeck(self.enemyHand.removeCopyOfCards("7"))
+                    case "8":
+                        removedCards.combineDeck(self.enemyHand.removeCopyOfCards("8"))
+                    case "9":
+                        removedCards.combineDeck(self.enemyHand.removeCopyOfCards("9"))
+                    case "10":
+                        removedCards.combineDeck(self.enemyHand.removeCopyOfCards("10"))
+                    case "J":
+                        removedCards.combineDeck(self.enemyHand.removeCopyOfCards("J"))
+                    case "Q":
+                        removedCards.combineDeck(self.enemyHand.removeCopyOfCards("Q"))
+                    case "K":
+                        removedCards.combineDeck(self.enemyHand.removeCopyOfCards("K"))
+                    case "A":
+                        removedCards.combineDeck(self.enemyHand.removeCopyOfCards("A"))
+                    case _:
+                        pass
+                if(removedCards.isEmpty() == True):
+                    self.isGoFish = True
+                    print("added card")
+                    self.playerHand.addCard(self.deck.drawCard())
+                else:
+                    self.isGoFish = False
+                    self.playerHand.combineDeck(removedCards)
 
         def dealStartingCards(self):
             for _ in range(7):
