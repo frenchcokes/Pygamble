@@ -256,7 +256,7 @@ class GoFish:
 
         def playerTurn(self, input):
             if(self.isGoFish == True):
-                #enemy does 
+                self.enemyGoFish()
                 self.isGoFish == False
             else:     
                 removedCards = Pycards.Deck(-1)
@@ -319,3 +319,14 @@ class GoFish:
                         randomCard = "K"
                     case 14:
                         randomCard = "A"
+
+            cardsRemovedFromPlayer = Pycards.Deck(-1)
+
+            cardsRemovedFromPlayer.combineDeck(self.playerHand.removeCopyOfCards(randomCard))
+
+            if(cardsRemovedFromPlayer.isEmpty() == True):
+                #Do if enemy go fish
+                pass
+            else:
+                self.isGoFish = False
+                self.enemyHand.combineDeck(cardsRemovedFromPlayer)
