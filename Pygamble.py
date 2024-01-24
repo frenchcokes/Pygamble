@@ -1,4 +1,5 @@
 import Pycards
+import random
 
 class Blackjack:
     def __init__(self):
@@ -292,6 +293,8 @@ class GoFish:
                     self.isGoFish = True
                     print("added card")
                     self.playerHand.addCard(self.deck.drawCard())
+
+                    self.enemyGoFish()
                 else:
                     self.isGoFish = False
                     self.playerHand.combineDeck(removedCards)
@@ -300,3 +303,19 @@ class GoFish:
             for _ in range(7):
                 self.playerHand.addCard(self.deck.drawCard())
                 self.enemyHand.addCard(self.deck.drawCard())
+
+        def enemyGoFish(self):
+            #Choose a symbol from 2-A 
+            randomCard = random.randint(2, 14)
+            if (randomCard <= 10):
+                randomCard = str(randomCard)
+            else:
+                match(randomCard):
+                    case 11:
+                        randomCard = "J"
+                    case 12:
+                        randomCard = "Q"
+                    case 13:
+                        randomCard = "K"
+                    case 14:
+                        randomCard = "A"
