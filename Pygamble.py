@@ -315,3 +315,5 @@ class GoFish:
                 pass
             else:
                 self.enemyHand.combineDeck(cardsRemovedFromPlayer)
+                #Recursion to ensure enemy keeps fishing
+                self.enemyGoFish()
