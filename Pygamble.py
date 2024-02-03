@@ -292,6 +292,21 @@ class GoFish:
 
         def enemyGoFish(self):
             #Choose a symbol from 2-A 
+            randomCard = self.pickRandomCard()
+
+            cardsRemovedFromPlayer = Pycards.Deck(-1)
+
+            cardsRemovedFromPlayer.combineDeck(self.playerHand.removeCopyOfCards(randomCard))
+
+            if(cardsRemovedFromPlayer.isEmpty() == True):
+                self.enemyHand.addCard(self.deck.drawCard())
+                pass
+            else:
+                self.enemyHand.combineDeck(cardsRemovedFromPlayer)
+                #Recursion to ensure enemy keeps fishing
+                self.enemyGoFish()
+
+        def pickRandomCard():
             randomCard = random.randint(2, 14)
             if (randomCard <= 10):
                 randomCard = str(randomCard)
@@ -305,15 +320,4 @@ class GoFish:
                         randomCard = "K"
                     case 14:
                         randomCard = "A"
-
-            cardsRemovedFromPlayer = Pycards.Deck(-1)
-
-            cardsRemovedFromPlayer.combineDeck(self.playerHand.removeCopyOfCards(randomCard))
-
-            if(cardsRemovedFromPlayer.isEmpty() == True):
-                self.enemyHand.addCard(self.deck.drawCard())
-                pass
-            else:
-                self.enemyHand.combineDeck(cardsRemovedFromPlayer)
-                #Recursion to ensure enemy keeps fishing
-                self.enemyGoFish()
+            return randomCard
